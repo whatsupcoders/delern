@@ -1,5 +1,6 @@
+import 'package:delern_flutter/flutter/styles.dart' as app_styles;
 import 'package:delern_flutter/views/helpers/card_decoration_widget.dart';
-import 'package:delern_flutter/views/helpers/non_scrolling_markdown.dart';
+import 'package:delern_flutter/views/helpers/non_scrolling_markdown_widget.dart';
 import 'package:flutter/material.dart';
 
 class CardDisplayWidget extends StatelessWidget {
@@ -27,8 +28,9 @@ class CardDisplayWidget extends StatelessWidget {
       );
 
   List<Widget> _buildCardBody(BuildContext context) {
-    final widgetList = [
-      buildNonScrollingMarkdown(front, context),
+    final widgetList = <Widget>[
+      NonScrollingMarkdownWidget(
+          text: front, textStyle: app_styles.primaryText),
     ];
 
     if (showBack) {
@@ -37,7 +39,10 @@ class CardDisplayWidget extends StatelessWidget {
           padding: EdgeInsets.symmetric(vertical: 15),
           child: Divider(height: 1),
         ))
-        ..add(buildNonScrollingMarkdown(back, context));
+        ..add(NonScrollingMarkdownWidget(
+          text: back,
+          textStyle: app_styles.primaryText,
+        ));
     }
 
     return widgetList;

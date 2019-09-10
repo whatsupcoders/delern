@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:delern_flutter/flutter/localization.dart' as localization;
 import 'package:delern_flutter/flutter/styles.dart' as app_styles;
 import 'package:delern_flutter/views/helpers/card_decoration_widget.dart';
-import 'package:delern_flutter/views/helpers/non_scrolling_markdown.dart';
+import 'package:delern_flutter/views/helpers/non_scrolling_markdown_widget.dart';
 import 'package:flutter/material.dart';
 
 const _kFlipCardDuration = Duration(milliseconds: 300);
@@ -135,8 +135,9 @@ class _FlipCardWidgetState extends State<FlipCardWidget>
                         constraints: BoxConstraints(
                           minHeight: viewportConstraints.maxHeight,
                         ),
-                        child: buildNonScrollingMarkdown(
-                            _isFront ? widget.front : widget.back, context)),
+                        child: NonScrollingMarkdownWidget(
+                            text: _isFront ? widget.front : widget.back,
+                            textStyle: app_styles.primaryText)),
                   ),
                 ),
               ),
