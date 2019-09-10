@@ -21,7 +21,6 @@ void main() {
         front: frontSide,
         back: backSide,
         gradient: getLearnCardGradientFromGender(Gender.masculine),
-        isMarkdown: false,
         onFlip: () {
           _wasFlipped = true;
         },

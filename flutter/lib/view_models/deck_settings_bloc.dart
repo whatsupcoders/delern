@@ -20,7 +20,6 @@ class DeckSettingsBloc extends ScreenBloc {
     // TODO(ksheremet): this is usually called _initFields().
     _deckName = initialDeck.name;
     _deckType = initialDeck.type;
-    _markdown = initialDeck.markdown;
     _initListeners();
   }
 
@@ -60,7 +59,6 @@ class DeckSettingsBloc extends ScreenBloc {
       await user.updateDeck(
           deck: initialDeck.rebuild((b) => b
             ..name = _deckName
-            ..markdown = _markdown
             ..type = _deckType));
       return true;
     } catch (e, stackTrace) {

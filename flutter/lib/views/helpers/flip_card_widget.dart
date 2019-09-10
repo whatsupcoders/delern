@@ -15,13 +15,11 @@ class FlipCardWidget extends StatefulWidget {
   final String front;
   final String back;
   final Gradient gradient;
-  final bool isMarkdown;
   final CardFlipCallback onFlip;
 
   const FlipCardWidget({
     @required this.front,
     @required this.back,
-    @required this.isMarkdown,
     @required this.gradient,
     // Key is needed to compare widgets. One example:
     // In ViewLearning PageView, oldWidget and widget with the same fields

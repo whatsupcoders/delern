@@ -7,14 +7,12 @@ class CardDisplayWidget extends StatelessWidget {
   final String back;
   final bool showBack;
   final Gradient gradient;
-  final bool isMarkdown;
 
   const CardDisplayWidget(
       {@required this.front,
       @required this.back,
       @required this.showBack,
-      @required this.gradient,
-      @required this.isMarkdown});
+      @required this.gradient});
 
   @override
   Widget build(BuildContext context) => Padding(

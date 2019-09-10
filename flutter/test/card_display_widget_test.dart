@@ -15,7 +15,6 @@ void main() {
         front: frontSide,
         back: backSide,
         gradient: getLearnCardGradientFromGender(Gender.feminine),
-        isMarkdown: false,
         showBack: true,
       ),
     ));

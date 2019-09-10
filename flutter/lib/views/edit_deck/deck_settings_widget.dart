@@ -22,12 +22,10 @@ class DeckSettingsWidget extends StatefulWidget {
 
 class _DeckSettingsWidgetState extends State<DeckSettingsWidget> {
   DeckType _currentDeckType;
-  bool _isMarkdown;
 
   @override
   void initState() {
     _currentDeckType = widget.deck.type;
-    _isMarkdown = widget.deck.markdown;
     super.initState();
   }
 
