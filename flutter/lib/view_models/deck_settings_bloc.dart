@@ -13,7 +13,6 @@ class DeckSettingsBloc extends ScreenBloc {
   final DeckModel initialDeck;
   String _deckName;
   DeckType _deckType;
-  bool _markdown;
 
   DeckSettingsBloc({@required User user, @required this.initialDeck})
       : assert(initialDeck != null),
@@ -41,9 +40,6 @@ class DeckSettingsBloc extends ScreenBloc {
   final _onDeckTypeController = StreamController<DeckType>();
   Sink<DeckType> get onDeckType => _onDeckTypeController.sink;
 
-  final _onMarkdownController = StreamController<bool>();
-  Sink<bool> get onMarkdown => _onMarkdownController.sink;
-
   Future<void> _delete() {
     unawaited(logDeckDelete(initialDeck.key));
     return user.deleteDeck(deck: initialDeck);
@@ -56,7 +52,6 @@ class DeckSettingsBloc extends ScreenBloc {
     _doShowConfirmationDialogController.close();
     _onDeckTypeController.close();
     _onDeckNameController.close();
-    _onMarkdownController.close();
     super.dispose();
   }
 
@@ -103,8 +98,6 @@ class DeckSettingsBloc extends ScreenBloc {
     _onDeckNameController.stream.listen((name) => _deckName = name);
 
     _onDeckTypeController.stream.listen((deckType) => _deckType = deckType);
-
-    _onMarkdownController.stream.listen((markdown) => _markdown = markdown);
   }
 
   @override

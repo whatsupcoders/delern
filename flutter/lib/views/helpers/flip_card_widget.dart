@@ -104,26 +104,6 @@ class _FlipCardWidgetState extends State<FlipCardWidget>
     }
   }
 
-  Widget _sideText(String text, BuildContext context) {
-    if (widget.isMarkdown) {
-      // TODO(ksheremet): Center text
-      return buildNonScrollingMarkdown(text, context);
-    }
-    return Column(
-      mainAxisSize: MainAxisSize.max,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        Center(
-          child: Text(
-            text,
-            textAlign: TextAlign.center,
-            style: app_styles.primaryText,
-          ),
-        ),
-      ],
-    );
-  }
-
   @override
   Widget build(BuildContext context) => AnimatedBuilder(
       animation: _flipAnimation,
@@ -157,7 +137,7 @@ class _FlipCardWidgetState extends State<FlipCardWidget>
                         constraints: BoxConstraints(
                           minHeight: viewportConstraints.maxHeight,
                         ),
-                        child: _sideText(
+                        child: buildNonScrollingMarkdown(
                             _isFront ? widget.front : widget.back, context)),
                   ),
                 ),
