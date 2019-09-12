@@ -12,16 +12,19 @@ class NonScrollingMarkdownWidget extends StatelessWidget {
   const NonScrollingMarkdownWidget({this.text, this.textStyle});
 
   @override
-  Widget build(BuildContext context) => MarkdownBody(
-      data: text,
-      styleSheet: MarkdownStyleSheet.fromTheme(Theme.of(context))
-          .copyWith(p: textStyle),
-      onTapLink: (href) async {
-        if (await canLaunch(href)) {
-          await launch(href, forceSafariVC: false);
-        } else {
-          unawaited(UserMessages.showError(() => Scaffold.of(context),
-              localizations.of(context).couldNotLaunchUrl(href)));
-        }
-      });
+  Widget build(BuildContext context) => Center(
+        child: MarkdownBody(
+            data: text,
+            styleSheet: MarkdownStyleSheet.fromTheme(Theme.of(context))
+                .copyWith(
+                    p: textStyle.copyWith(), pAlignment: WrapAlignment.center),
+            onTapLink: (href) async {
+              if (await canLaunch(href)) {
+                await launch(href, forceSafariVC: false);
+              } else {
+                unawaited(UserMessages.showError(() => Scaffold.of(context),
+                    localizations.of(context).couldNotLaunchUrl(href)));
+              }
+            }),
+      );
 }
