@@ -28,15 +28,35 @@ void main() {
       ),
     ));
     await tester.pumpAndSettle();
-    final frontFinder = find.text(frontSide);
-    expect(frontFinder, findsOneWidget);
+    _expectText(tester.allWidgets, frontSide);
     // Back side wasn't showed
     assert(!_wasFlipped);
     await tester.tap(find.byType(CardDecorationWidget));
     await tester.pumpAndSettle();
-    final backFinder = find.text(backSide);
-    expect(backFinder, findsOneWidget);
+    _expectText(tester.allWidgets, backSide);
     // Back side was showed
     assert(_wasFlipped);
   });
+}
+
+void _expectText(Iterable<Widget> widgets, String string) {
+  for (final widget in widgets) {
+    if (widget is RichText) {
+      final TextSpan span = widget.text;
+      final text = _extractTextFromTextSpan(span);
+      expect(text, equals(string));
+      // No need to iterate more after the RichText
+      break;
+    }
+  }
+}
+
+String _extractTextFromTextSpan(TextSpan span) {
+  final textBuffer = StringBuffer(span.text ?? '');
+  if (span.children != null) {
+    for (final child in span.children) {
+      textBuffer.write(_extractTextFromTextSpan(child));
+    }
+  }
+  return textBuffer.toString();
 }
