@@ -441,7 +441,7 @@ To see the source code for this app, please visit the [Delern GitHub repo](https
         'The deck, all cards and learning history will be removed.\n\n'
         'If you have shared this deck with other users, it will also be '
         'removed from all users it is shared with. Do you want to delete '
-        'deck?',
+        'the deck?',
         name: 'deleteDeckOwnerAccessQuestion',
         desc: 'Delete deck question to owner of deck',
       );
@@ -449,7 +449,7 @@ To see the source code for this app, please visit the [Delern GitHub repo](https
   String get deleteDeckWriteReadAccessQuestion => Intl.message(
         'The deck will be removed from your account only, all cards and '
         'learning history will remain with the owner and other users. '
-        'Do you want to delete deck?',
+        'Do you want to delete the deck?',
         name: 'deleteDeckWriteReadAccessQuestion',
         desc: 'Delete deck question to user with write access',
       );
