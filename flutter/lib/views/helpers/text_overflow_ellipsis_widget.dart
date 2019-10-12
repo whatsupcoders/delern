@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 class TextOverflowEllipsisWidget extends StatelessWidget {
   final String textDetails;
-  final TextStyle primaryTextStyle;
+  final TextStyle textStyle;
 
   const TextOverflowEllipsisWidget(
-      {@required this.textDetails, this.primaryTextStyle});
+      {@required this.textDetails, this.textStyle});
 
   @override
   Widget build(BuildContext context) => Text(
@@ -13,6 +13,6 @@ class TextOverflowEllipsisWidget extends StatelessWidget {
         maxLines: 1,
         softWrap: true,
         overflow: TextOverflow.ellipsis,
-        style: primaryTextStyle,
+        style: textStyle,
       );
 }
