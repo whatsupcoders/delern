@@ -39,6 +39,9 @@ linter:
     # TODO(dotdoom): add messages to asserts.
     prefer_asserts_with_message: false
 
+    # TODO(ksheremet): Decide whether to use relative imports
+    prefer_relative_imports: false
+
     # Questionable effort-to-gain ratio.
     avoid_catches_without_on_clauses: false
     avoid_function_literals_in_foreach_calls: false
@@ -81,6 +84,7 @@ linter:
     avoid_types_on_closure_parameters: true
     avoid_unused_constructor_parameters: true
     avoid_void_async: true
+    avoid_web_libraries_in_flutter: true
     await_only_futures: true
     camel_case_extensions: true
     camel_case_types: true
@@ -149,7 +153,6 @@ linter:
     prefer_iterable_whereType: true
     prefer_mixin: true
     prefer_null_aware_operators: true
-    prefer_relative_imports: true
     prefer_single_quotes: true
     prefer_spread_collections: true
     prefer_typing_uninitialized_variables: true
