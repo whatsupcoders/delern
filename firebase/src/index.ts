@@ -73,6 +73,12 @@ const findOrCreateIOSApp = async (
   }> = await firebase_tools.list();
 
   if (projects.findIndex(p => p.id === projectId) < 0) {
+    console.log(`
+The project does not exist and will be created. Since it is a completely new
+project, it will take a while (few minutes) to initialize for the first time.
+
+Please be patient.
+`);
     await firebase_tools.projects.create(projectId, {
       displayName,
     });
@@ -127,19 +133,30 @@ const findOrCreateIOSApp = async (
     await iosApp.getConfig()
   );
 
-  await firebase_tools.deploy({
-    project: projectId,
-    message: 'Deployed by terraform',
-    force: true,
-  });
+  try {
+    await firebase_tools.deploy({
+      project: projectId,
+      message: 'Deployed by terraform',
+      force: true,
+    });
+  } catch (e) {
+    console.error(
+      `️
+⚠️ Deploy failed! The project will not be properly initialized. Functions,
+                 database security rules, website, AppEngine and other artifacts
+                 will not be available. Please inspect the error below:
+
+`,
+      e
+    );
+  }
 
   // TODO(dotdoom): need to update flutter/ios/Runner.xcodeproj/project.pbxproj
   // TODO(dotdoom): create OAuth2 client ID for Android once it's possible:
   //                https://issuetracker.google.com/issues/116182848
 
   const sha1 = hashes.find(value => value.length === 59);
-  console.log(`Terraforming of project ${projectId} (mostly) complete!
-
+  console.log(`
 The following steps have to be completed manually if you have not done them yet:
 
 - [⚠️ required] go to

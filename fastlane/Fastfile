@@ -80,10 +80,14 @@ lane :setup do
   Dir.chdir('../firebase') do
     software = {
       'Google Cloud SDK' => [
-        lambda { Helper.backticks('gcloud --version').lines.first },
-        'https://cloud.google.com/sdk/install',
+        lambda do
+          # This will fail if user is not authorized, triggering error message.
+          sh(%w(gcloud auth print-access-token), log: false)
+          Helper.backticks('gcloud --version').lines.first
+        end,
+        'https://cloud.google.com/sdk/install and run "gcloud init"',
       ],
-      'NodeJS 8.0 or above' => [
+      'NodeJS npm' => [
         lambda { Helper.backticks('npm --version') },
         'https://nodejs.org/',
       ],
@@ -94,7 +98,7 @@ lane :setup do
     }.map do |software_name, (version_getter, download_url)|
       begin
         "✔️ #{software_name} (you have #{version_getter[].strip} installed)"
-      rescue Errno::ENOENT
+      rescue
         "⚠️ #{software_name} (download at #{download_url})"
       end
     end
@@ -114,6 +118,7 @@ INFO
 
     project_id = "delern-debug-#{_github_fork_name()}"
     sh %w(npm install)
+    Dir.chdir('functions') { sh %w(npm install) }
     fastlane_require 'shellwords'
     # Give Firebase login interactive mode and do not crop lines.
     exec %W(npm start -- #{project_id}).shelljoin
