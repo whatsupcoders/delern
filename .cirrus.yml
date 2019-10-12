@@ -43,6 +43,10 @@ flutter_and_fastlane_task_template: &FLUTTER_AND_FASTLANE_TASK_TEMPLATE
   #  fingerprint_script:
   #  - uname -ms
   #  # Rely on fastlane to download and install Flutter.
+  dart_build_cache:
+    folder: flutter/.dart_tool
+    fingerprint_script:
+    - uname -ms
   bundler_cache:
     folder: vendor/bundle
     fingerprint_script:
@@ -110,6 +114,7 @@ task:
   - ( cd flutter && bundle exec fastlane android build )
   ensure_clean_git_script: bundle exec fastlane ensure_clean_git
   cleanup_before_cache_script:
+  - rm -rf flutter/.dart_tool/flutter_build
   # https://cirrus-ci.org/examples/#caching
   - rm -rf ~/.gradle/caches/*.*/
   - find ~/.gradle/caches/ -name "*.lock" -type f -delete
@@ -137,6 +142,8 @@ task:
   build_script:
   - ( cd flutter && bundle exec fastlane ios build )
   ensure_clean_git_script: bundle exec fastlane ensure_clean_git
+  cleanup_before_cache_script:
+  - rm -rf flutter/.dart_tool/flutter_build
   always:
     move_artifacts_script:
     - mv flutter/build/ios/iphoneos/Runner.app "${CIRRUS_REPO_NAME}.app"
