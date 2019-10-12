@@ -274,14 +274,14 @@ class CardItemWidget extends StatelessWidget {
                           children: <Widget>[
                             TextOverflowEllipsisWidget(
                               textDetails: card.front,
-                              textStyle: primaryTextStyle,
+                              primaryTextStyle: primaryTextStyle,
                             ),
                             Container(
                               padding: const EdgeInsets.only(
                                   top: _kFrontBackTextPadding),
                               child: TextOverflowEllipsisWidget(
                                 textDetails: card.back ?? '',
-                                textStyle: secondaryTextStyle,
+                                primaryTextStyle: secondaryTextStyle,
                               ),
                             ),
                           ],
