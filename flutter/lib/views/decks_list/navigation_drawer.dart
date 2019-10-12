@@ -145,9 +145,9 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
       // TODO(dotdoom): add more providers here #944.
       case SignInProvider.google:
         return Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             color: Colors.white,
-            borderRadius: const BorderRadius.all(Radius.circular(2)),
+            borderRadius: BorderRadius.all(Radius.circular(2)),
           ),
           padding: const EdgeInsets.all(8),
           child: Image.asset('images/google_sign_in.png', height: 18),
