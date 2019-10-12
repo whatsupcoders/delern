@@ -5,6 +5,7 @@ import 'package:delern_flutter/models/deck_model.dart';
 import 'package:delern_flutter/view_models/card_create_update_bloc.dart';
 import 'package:delern_flutter/views/base/screen_bloc_view.dart';
 import 'package:delern_flutter/views/helpers/save_updates_dialog.dart';
+import 'package:delern_flutter/views/helpers/text_overflow_ellipsis_widget.dart';
 import 'package:flutter/material.dart';
 
 class CardCreateUpdate extends StatefulWidget {
@@ -71,7 +72,9 @@ class _CardCreateUpdateState extends State<CardCreateUpdate> {
   AppBar _buildAppBar(CardCreateUpdateBloc bloc) {
     void saveCard() => bloc.onSaveCard.add(null);
     return AppBar(
-      title: Text(widget.deck.name),
+      title: TextOverflowEllipsisWidget(
+        textDetails: widget.deck.name,
+      ),
       actions: <Widget>[
         StreamBuilder<bool>(
           initialData: false,

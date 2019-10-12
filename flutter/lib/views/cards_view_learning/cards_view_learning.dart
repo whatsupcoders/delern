@@ -5,6 +5,7 @@ import 'package:delern_flutter/views/base/screen_bloc_view.dart';
 import 'package:delern_flutter/views/helpers/card_background_specifier.dart';
 import 'package:delern_flutter/views/helpers/flip_card_widget.dart';
 import 'package:delern_flutter/views/helpers/progress_indicator_widget.dart';
+import 'package:delern_flutter/views/helpers/text_overflow_ellipsis_widget.dart';
 import 'package:flutter/material.dart';
 
 const _kCardPageRatio = 0.9;
@@ -45,10 +46,14 @@ class _CardsViewLearningState extends State<CardsViewLearning>
                 stream: bloc.doGetNumberOfCards,
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
-                    return Text(
-                        '(${_currentCard + 1}/${snapshot.data}) ${widget.deck.name}');
+                    return TextOverflowEllipsisWidget(
+                      textDetails:
+                          '(${_currentCard + 1}/${snapshot.data}) ${widget.deck.name}',
+                    );
                   }
-                  return Text(widget.deck.name);
+                  return TextOverflowEllipsisWidget(
+                    textDetails: widget.deck.name,
+                  );
                 })),
         bodyBuilder: (bloc) => StreamBuilder<List<CardModel>>(
           stream: bloc.doGetCardList,
