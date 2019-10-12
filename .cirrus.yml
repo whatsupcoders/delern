@@ -65,6 +65,8 @@ task:
   name: flutter (linux)
   container:
     image: dasfoo/dev:latest
+    # TODO(dotdoom): figure out why we don't fit into 4GB for build.
+    memory: 6
   env: &LINUX_ENV
     # https://github.com/flutter/flutter/pull/37581
     ANDROID_SDK_ROOT: "${ANDROID_HOME}"
