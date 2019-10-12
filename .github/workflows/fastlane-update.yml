@@ -2,8 +2,8 @@ name: Fastlane Update
 
 on:
   schedule:
-    # Every Saturday at [3:04] UTC: https://crontab.guru/#4_3_*_*_SAT
-    - cron: "4 3 * * SAT"
+    # Every day at 3:04 UTC: https://crontab.guru/#4_3_*_*_*
+    - cron: "4 3 * * *"
 
 jobs:
   fastlane-update:
