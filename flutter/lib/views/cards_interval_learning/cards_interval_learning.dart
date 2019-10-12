@@ -14,6 +14,7 @@ import 'package:delern_flutter/views/helpers/progress_indicator_widget.dart';
 import 'package:delern_flutter/views/helpers/save_updates_dialog.dart';
 import 'package:delern_flutter/views/helpers/sign_in_widget.dart';
 import 'package:delern_flutter/views/helpers/slow_operation_widget.dart';
+import 'package:delern_flutter/views/helpers/text_overflow_ellipsis_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:pedantic/pedantic.dart';
@@ -86,7 +87,9 @@ class CardsIntervalLearningState extends State<CardsIntervalLearning> {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
-          title: Text(_viewModel.deck.name),
+          title: TextOverflowEllipsisWidget(
+            textDetails: _viewModel.deck.name,
+          ),
           actions: _viewModel.card == null ? null : <Widget>[_buildPopupMenu()],
         ),
         body: _viewModel.card == null
