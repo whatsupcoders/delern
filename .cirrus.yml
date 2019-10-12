@@ -36,11 +36,13 @@ task:
   - ( cd firebase && node_modules/.bin/firebase-bolt database.rules.bolt -o $(mktemp -u) )
 
 flutter_and_fastlane_task_template: &FLUTTER_AND_FASTLANE_TASK_TEMPLATE
-  flutter_cache:
-    folder: $FLUTTER_SDK_ROOT
-    fingerprint_script:
-    - uname -ms
-    # Rely on fastlane to download and install Flutter.
+  # TODO(dotdoom): cache is not helpful:
+  #                https://github.com/flutter/flutter/issues/39176
+  #flutter_cache:
+  #  folder: $FLUTTER_SDK_ROOT
+  #  fingerprint_script:
+  #  - uname -ms
+  #  # Rely on fastlane to download and install Flutter.
   bundler_cache:
     folder: vendor/bundle
     fingerprint_script:
