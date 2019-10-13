@@ -68,7 +68,11 @@ void main() {
     test('learn_card', () async {
       await driver.tap(find.byType('DeckListItemWidget'));
       await driver.tap(find.byTooltip(localizations.intervalLearningTooltip));
-      await driver.tap(find.byTooltip('Back'));
+      // TODO(ksheremet): getText doesn't work with TextSpan which is used
+      // in Markdown text https://github.com/flutter/flutter/issues/42450
+      //expect(await driver.getText(find.text('front1')), 'front1');
+      await driver.tap(find.byType('CardDecorationWidget'));
+      await driver.tap(find.byTooltip('I know'));
     });
   });
 }

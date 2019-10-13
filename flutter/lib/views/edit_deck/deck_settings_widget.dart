@@ -22,12 +22,10 @@ class DeckSettingsWidget extends StatefulWidget {
 
 class _DeckSettingsWidgetState extends State<DeckSettingsWidget> {
   DeckType _currentDeckType;
-  bool _isMarkdown;
 
   @override
   void initState() {
     _currentDeckType = widget.deck.type;
-    _isMarkdown = widget.deck.markdown;
     super.initState();
   }
 
@@ -75,26 +73,6 @@ class _DeckSettingsWidgetState extends State<DeckSettingsWidget> {
                       ],
                     ),
                   ),
-                ),
-                const Divider(),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    Text(
-                      localizations.of(context).markdown,
-                      style: app_styles.primaryText,
-                    ),
-                    Switch(
-                      value: _isMarkdown,
-                      onChanged: (newValue) {
-                        setState(() {
-                          _isMarkdown = newValue;
-                          widget.bloc.onMarkdown.add(newValue);
-                        });
-                      },
-                    )
-                  ],
                 ),
               ],
             ),

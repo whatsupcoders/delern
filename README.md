@@ -25,12 +25,10 @@ Features:
 [badge/deploy/flutter/play-store]: https://api.cirrus-ci.com/github/dasfoo/delern.svg?branch=master&task=deploy+(Play+Store)
 [badge/deploy/flutter/app-store]:  https://api.cirrus-ci.com/github/dasfoo/delern.svg?branch=master&task=deploy+(App+Store)
 [badge/build/windows]:             https://ci.appveyor.com/api/projects/status/689esuw57tfyjbkd/branch/master?svg=true
-[badge/test/flutter/osx]:          https://api.codemagic.io/apps/5c7687c8989e5e000c102345/5c7687c8989e5e000c102344/status_badge.svg
 [badge/test/flutter/coverage]:     https://codecov.io/gh/dasfoo/delern/branch/master/graph/badge.svg
 
 [link/build/cirrus-ci]:            https://cirrus-ci.com/github/dasfoo/delern
 [link/build/appveyor]:             https://ci.appveyor.com/project/dotdoom/delern/branch/master
-[link/test/codemagic]:             https://codemagic.io/apps/5c7687c8989e5e000c102345/5c7687c8989e5e000c102344/latest_build
 [link/test/codecov]:               https://codecov.io/gh/dasfoo/delern
 
 | CI/CD                                         | Status (on master)                                                 |
@@ -43,7 +41,6 @@ Features:
 | Deploy Flutter/iOS to App Store               | [![deploy][badge/deploy/flutter/app-store]][link/build/cirrus-ci]  |
 | Deploy Firebase                               | [![deploy][badge/deploy/firebase]][link/build/cirrus-ci]           |
 | Code coverage by unit tests                   | [![coverage][badge/test/flutter/coverage]][link/test/codecov]      |
-| Flutter Driver integration tests              | [![driver][badge/test/flutter/osx]][link/test/codemagic]           |
 
 ## Create your Decks with Cards
 

@@ -59,8 +59,7 @@ class _CardPreviewState extends State<CardPreview> {
                         showBack: true,
                         gradient: specifyLearnCardBackgroundGradient(
                             snapshot.requireData.deck.type,
-                            snapshot.requireData.card.back),
-                        isMarkdown: snapshot.requireData.deck.markdown))),
+                            snapshot.requireData.card.back)))),
             const Padding(padding: EdgeInsets.only(bottom: 100))
           ],
         ),

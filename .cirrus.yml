@@ -36,11 +36,17 @@ task:
   - ( cd firebase && node_modules/.bin/firebase-bolt database.rules.bolt -o $(mktemp -u) )
 
 flutter_and_fastlane_task_template: &FLUTTER_AND_FASTLANE_TASK_TEMPLATE
-  flutter_cache:
-    folder: $FLUTTER_SDK_ROOT
+  # TODO(dotdoom): cache is not helpful:
+  #                https://github.com/flutter/flutter/issues/39176
+  #flutter_cache:
+  #  folder: $FLUTTER_SDK_ROOT
+  #  fingerprint_script:
+  #  - uname -ms
+  #  # Rely on fastlane to download and install Flutter.
+  dart_build_cache:
+    folder: flutter/.dart_tool
     fingerprint_script:
     - uname -ms
-    # Rely on fastlane to download and install Flutter.
   bundler_cache:
     folder: vendor/bundle
     fingerprint_script:
@@ -63,6 +69,8 @@ task:
   name: flutter (linux)
   container:
     image: dasfoo/dev:latest
+    # TODO(dotdoom): figure out why we don't fit into 4GB for build.
+    memory: 6
   env: &LINUX_ENV
     # https://github.com/flutter/flutter/pull/37581
     ANDROID_SDK_ROOT: "${ANDROID_HOME}"
@@ -106,6 +114,7 @@ task:
   - ( cd flutter && bundle exec fastlane android build )
   ensure_clean_git_script: bundle exec fastlane ensure_clean_git
   cleanup_before_cache_script:
+  - rm -rf flutter/.dart_tool/flutter_build
   # https://cirrus-ci.org/examples/#caching
   - rm -rf ~/.gradle/caches/*.*/
   - find ~/.gradle/caches/ -name "*.lock" -type f -delete
@@ -133,6 +142,8 @@ task:
   build_script:
   - ( cd flutter && bundle exec fastlane ios build )
   ensure_clean_git_script: bundle exec fastlane ensure_clean_git
+  cleanup_before_cache_script:
+  - rm -rf flutter/.dart_tool/flutter_build
   always:
     move_artifacts_script:
     - mv flutter/build/ios/iphoneos/Runner.app "${CIRRUS_REPO_NAME}.app"

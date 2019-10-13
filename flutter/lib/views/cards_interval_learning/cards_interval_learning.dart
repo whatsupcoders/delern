@@ -116,7 +116,6 @@ class CardsIntervalLearningState extends State<CardsIntervalLearning> {
                             return FlipCardWidget(
                               front: card.front,
                               back: card.back,
-                              isMarkdown: _viewModel.deck.markdown,
                               gradient: specifyLearnCardBackgroundGradient(
                                   _viewModel.deck.type, card.back),
                               onFlip: () {

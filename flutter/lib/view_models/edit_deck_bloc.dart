@@ -51,9 +51,6 @@ class EditDeckBloc extends ScreenBloc {
   final _onDeckTypeController = StreamController<DeckType>();
   Sink<DeckType> get onDeckType => _onDeckTypeController.sink;
 
-  final _onMarkdownController = StreamController<bool>();
-  Sink<bool> get onMarkdown => _onMarkdownController.sink;
-
   final _onEditCardIntentionController = StreamController<CardModel>();
   Sink<CardModel> get onEditCardIntention =>
       _onEditCardIntentionController.sink;
@@ -69,11 +66,6 @@ class EditDeckBloc extends ScreenBloc {
 
     _onDeckTypeController.stream.listen((deckType) {
       _deck = _deck.rebuild((b) => b.type = deckType);
-      _doDeckChangedController.add(_deck);
-    });
-
-    _onMarkdownController.stream.listen((markdown) {
-      _deck = _deck.rebuild((b) => b.markdown = markdown);
       _doDeckChangedController.add(_deck);
     });
 
@@ -108,7 +100,6 @@ class EditDeckBloc extends ScreenBloc {
     _onDeckNameController.close();
     _doShowConfirmationDialogController.close();
     _onDeckTypeController.close();
-    _onMarkdownController.close();
     _doDeckChangedController.close();
     _onEditCardIntentionController.close();
     _doEditCardController.close();
