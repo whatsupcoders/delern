@@ -11,6 +11,7 @@ jobs:
     if: "github.repository == 'dasfoo/delern'"
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      UPDATE_BRANCH: automated-update
     runs-on: macOS-latest
     steps:
       - uses: actions/checkout@v1
@@ -20,10 +21,10 @@ jobs:
         run: bundle exec fastlane update
       - name: "Check for changes and create/update PR"
         run: |
-          if [ -n "$(git status --porcelain)" ]; then
-            git config url."https://api:${GITHUB_TOKEN?}@github.com/".insteadOf 'https://github.com/'
+          git config url."https://api:${GITHUB_TOKEN?}@github.com/".insteadOf 'https://github.com/'
 
-            git checkout -b automated-update
+          if [ -n "$(git status --porcelain)" ]; then
+            git checkout -b "${UPDATE_BRANCH?}"
             git add .
             git commit --message "[auto] update dependencies"
             git push -f origin HEAD
@@ -32,4 +33,8 @@ jobs:
             # If PR already exists, hub exits with code 1 (just like any other
             # failure). Ignore it.
             hub pull-request --no-edit || true
+          else
+            # Delete branch when there are no changes (e.g. to close PR), ignore
+            # if it does not exist.
+            git push origin ":${UPDATE_BRANCH?}" || true
           fi
