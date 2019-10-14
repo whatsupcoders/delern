@@ -17,6 +17,7 @@ import 'package:delern_flutter/views/helpers/edit_delete_dismissible_widget.dart
 import 'package:delern_flutter/views/helpers/empty_list_message_widget.dart';
 import 'package:delern_flutter/views/helpers/observing_animated_list_widget.dart';
 import 'package:delern_flutter/views/helpers/search_bar_widget.dart';
+import 'package:delern_flutter/views/helpers/text_overflow_ellipsis_widget.dart';
 import 'package:flutter/material.dart';
 
 const int _kUpButtonVisibleRow = 20;
@@ -266,27 +267,25 @@ class CardItemWidget extends StatelessWidget {
                   // Use row to expand content to all available space
                   child: Row(
                     children: <Widget>[
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Text(
-                            card.front,
-                            maxLines: 1,
-                            softWrap: true,
-                            style: primaryTextStyle,
-                          ),
-                          Container(
-                            padding: const EdgeInsets.only(
-                                top: _kFrontBackTextPadding),
-                            child: Text(
-                              card.back ?? '',
-                              maxLines: 1,
-                              softWrap: true,
-                              style: secondaryTextStyle,
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            TextOverflowEllipsisWidget(
+                              textDetails: card.front,
+                              textStyle: primaryTextStyle,
                             ),
-                          ),
-                        ],
+                            Container(
+                              padding: const EdgeInsets.only(
+                                  top: _kFrontBackTextPadding),
+                              child: TextOverflowEllipsisWidget(
+                                textDetails: card.back ?? '',
+                                textStyle: secondaryTextStyle,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),

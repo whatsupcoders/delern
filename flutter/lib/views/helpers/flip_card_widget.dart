@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:delern_flutter/flutter/localization.dart' as localization;
 import 'package:delern_flutter/flutter/styles.dart' as app_styles;
 import 'package:delern_flutter/views/helpers/card_decoration_widget.dart';
-import 'package:delern_flutter/views/helpers/non_scrolling_markdown.dart';
+import 'package:delern_flutter/views/helpers/non_scrolling_markdown_widget.dart';
 import 'package:flutter/material.dart';
 
 const _kFlipCardDuration = Duration(milliseconds: 300);
@@ -15,13 +15,11 @@ class FlipCardWidget extends StatefulWidget {
   final String front;
   final String back;
   final Gradient gradient;
-  final bool isMarkdown;
   final CardFlipCallback onFlip;
 
   const FlipCardWidget({
     @required this.front,
     @required this.back,
-    @required this.isMarkdown,
     @required this.gradient,
     // Key is needed to compare widgets. One example:
     // In ViewLearning PageView, oldWidget and widget with the same fields
@@ -104,26 +102,6 @@ class _FlipCardWidgetState extends State<FlipCardWidget>
     }
   }
 
-  Widget _sideText(String text, BuildContext context) {
-    if (widget.isMarkdown) {
-      // TODO(ksheremet): Center text
-      return buildNonScrollingMarkdown(text, context);
-    }
-    return Column(
-      mainAxisSize: MainAxisSize.max,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        Center(
-          child: Text(
-            text,
-            textAlign: TextAlign.center,
-            style: app_styles.primaryText,
-          ),
-        ),
-      ],
-    );
-  }
-
   @override
   Widget build(BuildContext context) => AnimatedBuilder(
       animation: _flipAnimation,
@@ -157,8 +135,9 @@ class _FlipCardWidgetState extends State<FlipCardWidget>
                         constraints: BoxConstraints(
                           minHeight: viewportConstraints.maxHeight,
                         ),
-                        child: _sideText(
-                            _isFront ? widget.front : widget.back, context)),
+                        child: NonScrollingMarkdownWidget(
+                            text: _isFront ? widget.front : widget.back,
+                            textStyle: app_styles.primaryText)),
                   ),
                 ),
               ),

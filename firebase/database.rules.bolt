@@ -98,7 +98,7 @@ type Deck {
   category: String | Null,
   accepted: TransitionToTrueOnlyBoolean,
   lastSyncAt: Number,
-  markdown: Boolean,
+  markdown: Boolean | Null,
   // Redundant field copied from /deck_access for database querying simplicity.
   // DO NOT use as a source of truth, use /deck_access instead!
   access: AccessString | Null,

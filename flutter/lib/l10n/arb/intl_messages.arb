@@ -1,6 +1,6 @@
 {
   "@@locale": "en_US",
-  "@@last_modified": "2019-09-29T11:13:08.091587",
+  "@@last_modified": "2019-10-09T12:54:49.420612",
   "navigationDrawerSignOut": "Sign Out",
   "@navigationDrawerSignOut": {
     "description": "Sign Out in Navigation Drawer",
@@ -464,14 +464,14 @@
     "placeholders": {
     }
   },
-  "deleteDeckOwnerAccessQuestion": "The deck, all cards and learning history will be removed.\n\nIf you have shared this deck with other users, it will also be removed from all users it is shared with. Do you want to delete deck?",
+  "deleteDeckOwnerAccessQuestion": "The deck, all cards and learning history will be removed.\n\nIf you have shared this deck with other users, it will also be removed from all users it is shared with. Do you want to delete the deck?",
   "@deleteDeckOwnerAccessQuestion": {
     "description": "Delete deck question to owner of deck",
     "type": "text",
     "placeholders": {
     }
   },
-  "deleteDeckWriteReadAccessQuestion": "The deck will be removed from your account only, all cards and learning history will remain with the owner and other users. Do you want to delete deck?",
+  "deleteDeckWriteReadAccessQuestion": "The deck will be removed from your account only, all cards and learning history will remain with the owner and other users. Do you want to delete the deck?",
   "@deleteDeckWriteReadAccessQuestion": {
     "description": "Delete deck question to user with write access",
     "type": "text",

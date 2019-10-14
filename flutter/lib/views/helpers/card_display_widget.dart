@@ -1,6 +1,6 @@
 import 'package:delern_flutter/flutter/styles.dart' as app_styles;
 import 'package:delern_flutter/views/helpers/card_decoration_widget.dart';
-import 'package:delern_flutter/views/helpers/non_scrolling_markdown.dart';
+import 'package:delern_flutter/views/helpers/non_scrolling_markdown_widget.dart';
 import 'package:flutter/material.dart';
 
 class CardDisplayWidget extends StatelessWidget {
@@ -8,14 +8,12 @@ class CardDisplayWidget extends StatelessWidget {
   final String back;
   final bool showBack;
   final Gradient gradient;
-  final bool isMarkdown;
 
   const CardDisplayWidget(
       {@required this.front,
       @required this.back,
       @required this.showBack,
-      @required this.gradient,
-      @required this.isMarkdown});
+      @required this.gradient});
 
   @override
   Widget build(BuildContext context) => Padding(
@@ -30,8 +28,9 @@ class CardDisplayWidget extends StatelessWidget {
       );
 
   List<Widget> _buildCardBody(BuildContext context) {
-    final widgetList = [
-      _sideText(front, context),
+    final widgetList = <Widget>[
+      NonScrollingMarkdownWidget(
+          text: front, textStyle: app_styles.primaryText),
     ];
 
     if (showBack) {
@@ -40,20 +39,12 @@ class CardDisplayWidget extends StatelessWidget {
           padding: EdgeInsets.symmetric(vertical: 15),
           child: Divider(height: 1),
         ))
-        ..add(_sideText(back, context));
+        ..add(NonScrollingMarkdownWidget(
+          text: back,
+          textStyle: app_styles.primaryText,
+        ));
     }
 
     return widgetList;
-  }
-
-  Widget _sideText(String text, BuildContext context) {
-    if (isMarkdown) {
-      return buildNonScrollingMarkdown(text, context);
-    }
-    return Text(
-      text,
-      textAlign: TextAlign.center,
-      style: app_styles.primaryText,
-    );
   }
 }

@@ -116,7 +116,7 @@ abstract class DeckModelBuilder
     implements Builder<DeckModel, DeckModelBuilder> {
   String key;
   String name;
-  bool markdown = false;
+  bool markdown = true;
   DeckType type = DeckType.basic;
   bool accepted = true;
   AccessType access;

@@ -5,10 +5,6 @@ operating system. Configuration files can be found below:
 
 * [CirrusCI](.cirrus.yml) for Linux and OSX;
 * [AppVeyor](appveyor.yml) for Windows (because it's faster);
-* We also use CodeMagic but it does not have configuration files as of the time
-  of writing this. Configuration is minimal and done in UI. The advantage of
-  CodeMagic is that it runs Flutter Driver tests on an iPhone emulator, which is
-  complicated to configure with a traditional CI.
 
 ## Production environment
 
