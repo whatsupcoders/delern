@@ -86,6 +86,12 @@ class AppLocalizations {
         desc: 'User can edit a deck',
       );
 
+  String get emptyDeck => Intl.message(
+        'Deck Value Can\'t Be Empty',
+        name: 'emptyDeck',
+        desc: 'Deck Value Can\'t Be Empty',
+      );
+
   String get canView => Intl.message(
         'Can View',
         name: 'canView',
