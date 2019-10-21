@@ -20,6 +20,7 @@ import 'package:delern_flutter/views/helpers/search_bar_widget.dart';
 import 'package:delern_flutter/views/helpers/text_overflow_ellipsis_widget.dart';
 import 'package:flutter/material.dart';
 
+// TODO(kamal): Fix something
 const int _kUpButtonVisibleRow = 20;
 const double _kDividerPadding = 12;
 
