@@ -36,6 +36,7 @@ class _EditDeckState extends State<EditDeck> {
   final TextEditingController _deckNameController = TextEditingController();
   DeckModel _currentDeckState;
   GlobalKey fabKey = GlobalKey();
+  bool _emptyDeckCheck = false;
 
   void _searchTextChanged(EditDeckBloc bloc, String input) {
     if (input == null) {
@@ -75,6 +76,7 @@ class _EditDeckState extends State<EditDeck> {
           title: localizations.of(context).edit,
           search: (input) => _searchTextChanged(bloc, input),
           actions: _buildActions(bloc),
+          leading: _emptyDeckCheck ? Container() : null,
         ),
         bodyBuilder: (bloc) => Column(
           children: <Widget>[
@@ -111,11 +113,13 @@ class _EditDeckState extends State<EditDeck> {
   Widget _buildEditDeck(EditDeckBloc bloc) => TextField(
         textAlign: TextAlign.center,
         decoration: InputDecoration(
-          border: InputBorder.none,
+          border: _emptyDeckCheck ? null : InputBorder.none,
           suffixIcon: const Icon(Icons.edit),
           // We'd like to center text. Because of suffixIcon, the text
           // is placed a little bit to the left. To fix this problem, we
           // add an empty Container with size of Icon to the left.
+          errorText:
+              _emptyDeckCheck ? localizations.of(context).emptyDeck : null,
           prefixIcon: Container(
             height: IconTheme.of(context).size,
             width: IconTheme.of(context).size,
@@ -127,6 +131,14 @@ class _EditDeckState extends State<EditDeck> {
         style: app_styles.editDeckText,
         onChanged: (text) {
           bloc.onDeckName.add(text);
+          if (_deckNameController.text.isEmpty) {
+            setState(() {
+              _emptyDeckCheck = true;
+            });
+          } else {
+            _emptyDeckCheck = false;
+            bloc.onDeckName.add(text);
+          }
         },
       );
 
