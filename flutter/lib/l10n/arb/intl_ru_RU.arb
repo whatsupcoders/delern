@@ -723,5 +723,12 @@
     "type": "text",
     "placeholders": {
     }
+  },
+  "emptyDeckNameUserError": "Имя списка не может быть пустым",
+  "@emptyDeckNameUserError": {
+    "description": "Deck Value Can't Be Empty",
+    "type": "text",
+    "placeholders": {
+    }
   }
 }

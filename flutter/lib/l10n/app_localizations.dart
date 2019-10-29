@@ -86,12 +86,6 @@ class AppLocalizations {
         desc: 'User can edit a deck',
       );
 
-  String get emptyDeck => Intl.message(
-        'Deck Value Can\'t Be Empty',
-        name: 'emptyDeck',
-        desc: 'Deck Value Can\'t Be Empty',
-      );
-
   String get canView => Intl.message(
         'Can View',
         name: 'canView',
@@ -669,5 +663,11 @@ To see the source code for this app, please visit the [Delern GitHub repo](https
         'I don\'t know',
         name: 'doNotKnowCardTooltip',
         desc: 'Tooltip for do not know card button',
+      );
+
+  String get emptyDeckNameUserError => Intl.message(
+        'Deck name can\'t be empty',
+        name: 'emptyDeckNameUserError',
+        desc: 'Deck Value Can\'t Be Empty',
       );
 }

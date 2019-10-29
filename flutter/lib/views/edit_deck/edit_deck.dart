@@ -118,8 +118,9 @@ class _EditDeckState extends State<EditDeck> {
           // We'd like to center text. Because of suffixIcon, the text
           // is placed a little bit to the left. To fix this problem, we
           // add an empty Container with size of Icon to the left.
-          errorText:
-              _emptyDeckCheck ? localizations.of(context).emptyDeck : null,
+          errorText: _emptyDeckCheck
+              ? localizations.of(context).emptyDeckNameUserError
+              : null,
           prefixIcon: Container(
             height: IconTheme.of(context).size,
             width: IconTheme.of(context).size,

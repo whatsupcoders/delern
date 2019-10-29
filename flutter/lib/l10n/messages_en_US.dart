@@ -94,6 +94,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Email address"),
         "emptyCardsList":
             MessageLookupByLibrary.simpleMessage("Add your cards"),
+        "emptyDeckNameUserError":
+            MessageLookupByLibrary.simpleMessage("Deck name can\'t be empty"),
         "emptyDecksList":
             MessageLookupByLibrary.simpleMessage("Add your decks"),
         "emptyUserSharingList":

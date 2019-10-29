@@ -1,6 +1,6 @@
 {
   "@@locale": "en_US",
-  "@@last_modified": "2019-10-09T12:54:49.420612",
+  "@@last_modified": "2019-10-29T11:37:21.309443",
   "navigationDrawerSignOut": "Sign Out",
   "@navigationDrawerSignOut": {
     "description": "Sign Out in Navigation Drawer",
@@ -721,6 +721,13 @@
   "doNotKnowCardTooltip": "I don't know",
   "@doNotKnowCardTooltip": {
     "description": "Tooltip for do not know card button",
+    "type": "text",
+    "placeholders": {
+    }
+  },
+  "emptyDeckNameUserError": "Deck name can't be empty",
+  "@emptyDeckNameUserError": {
+    "description": "Deck Value Can't Be Empty",
     "type": "text",
     "placeholders": {
     }

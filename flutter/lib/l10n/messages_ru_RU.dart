@@ -103,6 +103,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Адрес электронной почты"),
         "emptyCardsList":
             MessageLookupByLibrary.simpleMessage("Добавьте карточки"),
+        "emptyDeckNameUserError": MessageLookupByLibrary.simpleMessage(
+            "Имя списка не может быть пустым"),
         "emptyDecksList":
             MessageLookupByLibrary.simpleMessage("Добавьте списки"),
         "emptyUserSharingList":
