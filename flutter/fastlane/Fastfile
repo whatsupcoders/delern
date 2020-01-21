@@ -2,6 +2,10 @@ fastlane_require 'fileutils'
 
 default_platform(:android)
 
+module SharedValues
+  PROMOTE_RELEASE = :PROMOTE_RELEASE
+end
+
 before_all do |lane, options|
   if [:build, :publish].include?(lane)
     commits_since_last_tag = changelog_from_git_commits(
@@ -11,21 +15,30 @@ before_all do |lane, options|
       # We push to "master" only when merging a PR, so increment with each merge.
       merge_commit_filtering: 'only_include_merges',
     ).lines.count
+    # changelog_from_git_commits populates this context, causing some actions
+    # (e.g. upload_to_testflight) to pick it up instead of our text files.
+    lane_context.delete(SharedValues::FL_CHANGELOG)
 
     # Keep even numbers for internal releases, and odd numbers for public, to
     # make sure they do not clash as the number of commits is usually the same.
     lane_context[SharedValues::BUILD_NUMBER] = number_of_commits * 2 + 1000
-    unless options[:release].to_s.empty?
-      lane_context[SharedValues::BUILD_NUMBER] += 1
-    end
-
-    lane_context[SharedValues::VERSION_NUMBER] = '%s.%d' % [
+    lane_context[SharedValues::VERSION_NUMBER] = options[:release].to_s
+    if lane_context[SharedValues::VERSION_NUMBER].empty?
+      lane_context[SharedValues::VERSION_NUMBER] = '%s.%d' % [
         # First 2 digits of version number are taken from tag (ex.: "2.1").
         last_git_tag,
         # Add the number of commits afterwards, multiplied by 10 to allow room
         # for manual testing of CI/CD, if necessary.
         commits_since_last_tag * 10,
-    ]
+      ]
+      lane_context[SharedValues::PROMOTE_RELEASE] = false
+    else
+      # We complement the tag (e.g. "2.1") to "2.1.0", which App Store will do
+      # anyway, but this way we also make it consistent with Play Store.
+      lane_context[SharedValues::VERSION_NUMBER] += '.0'
+      lane_context[SharedValues::BUILD_NUMBER] += 1
+      lane_context[SharedValues::PROMOTE_RELEASE] = true
+    end
   end
 end
 
@@ -116,7 +129,8 @@ platform :android do
     aab = flutter_build(build: 'appbundle')
     retry_on_exception do
       supply(
-        track: options[:release].to_s.empty? ? 'internal' : 'alpha',
+        track: lane_context[SharedValues::PROMOTE_RELEASE] ? 'alpha'
+                                                           : 'internal',
         aab: aab,
       )
     end
@@ -162,11 +176,15 @@ platform :ios do
       # https://github.community/t5/GitHub-Actions/How-to-retry-a-build-that-failed/m-p/32785#M1248
       upload_to_testflight(
         distribute_external: true,
-        groups: ['fastlane_testers'],
+        # Changelog is required for TestFlight.
+        changelog: 'Look for latest changes at ' +
+                   'https://github.com/dasfoo/delern/commits/master',
+        groups: lane_context[SharedValues::PROMOTE_RELEASE] ? ['alpha']
+                                                            : ['internal'],
       )
     end
 
-    unless options[:release].to_s.empty?
+    if lane_context[SharedValues::PROMOTE_RELEASE]
       retry_on_exception do
         upload_to_app_store(
           app_identifier: app_identifier,

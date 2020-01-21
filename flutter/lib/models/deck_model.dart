@@ -69,14 +69,10 @@ abstract class DeckModel
   static DeckModel fromSnapshot({
     @required String key,
     @required Map value,
-  }) {
-    if (value == null) {
-      return DeckModelBuilder().build();
-    }
-    return serializers
-        .deserializeWith(DeckModel.serializer, value)
-        .rebuild((b) => b..key = key);
-  }
+  }) =>
+      serializers
+          .deserializeWith(DeckModel.serializer, value)
+          .rebuild((b) => b..key = key);
 
   static void _initializeBuilder(DeckModelBuilder b) => b
     ..lastSyncAt = DateTime.fromMillisecondsSinceEpoch(0)
@@ -84,18 +80,6 @@ abstract class DeckModel
     ..access = AccessType.owner
     ..type = DeckType.basic
     ..accepted = true;
-
-  static Stream<DeckModel> get({@required String uid, @required String key}) =>
-      FirebaseDatabase.instance
-          .reference()
-          .child('decks')
-          .child(uid)
-          .child(key)
-          .onValue
-          .map((evt) => DeckModel.fromSnapshot(
-                key: key,
-                value: evt.snapshot.value,
-              ));
 
   StreamWithValue<Set<String>> get tags => cards
       ?.map<Set<String>>((cards) => cards.expand((card) => card.tags).toSet());

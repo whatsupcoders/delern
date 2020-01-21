@@ -73,8 +73,10 @@ void main() {
       // in Markdown text https://github.com/flutter/flutter/issues/16013
       //expect(await driver.getText(find.text('front1')), 'front1');
 
-      // TODO(dotdoom): use getWidgetDiagnostics once it's fixed:
-      // https://github.com/flutter/flutter/pull/45985.
+      final card =
+          await driver.getWidgetDiagnostics(find.byType('FlipCardWidget'));
+      assert(card['front'], 'front1');
+      assert(card['back'], 'back1');
 
       await driver.tap(find.byType('CardDecorationWidget'));
       await driver.tap(find.byTooltip(localizations.knowCardTooltip));
@@ -89,13 +91,19 @@ void main() {
       // in Markdown text https://github.com/flutter/flutter/issues/16013
       //expect(await driver.getText(find.text('front1')), 'front1');
 
-      // TODO(dotdoom): use getWidgetDiagnostics once it's fixed:
-      // https://github.com/flutter/flutter/pull/45985.
+      var card =
+          await driver.getWidgetDiagnostics(find.byType('FlipCardWidget'));
+      assert(card['front'], 'front1');
+      assert(card['back'], 'back1');
 
       await driver.tap(find.byType('CardDecorationWidget'));
       await driver.tap(find.byTooltip(localizations.shuffleTooltip));
       await driver.waitFor(find.text('(1/1) My Test Deck'));
       await driver.tap(find.byType('CardDecorationWidget'));
+
+      card = await driver.getWidgetDiagnostics(find.byType('FlipCardWidget'));
+      assert(card['front'], 'front1');
+      assert(card['back'], 'back1');
     });
   });
 }

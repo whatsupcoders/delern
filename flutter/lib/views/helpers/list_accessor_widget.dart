@@ -63,10 +63,20 @@ class _ListAccessorWidgetState<T extends KeyedListItem>
     if (_list.isEmpty) {
       return widget.emptyMessageBuilder();
     }
+    // We can add a spare item at the bottom of the list to make an offset, so
+    // that FloatingActionButton does not cover the last item. Make a guess
+    // whether it's needed.
+    // Note that for non-full-screen list, this may be unnecessary, because FAB
+    // may never interfere with the list. If such a need arises, this logic will
+    // have to be changed (e.g. passed as a ListAccessorWidget parameter).
+    final showSpareItem =
+        Scaffold.of(context, nullOk: true)?.hasFloatingActionButton == true;
     return ListView.builder(
-      itemBuilder: (context, index) =>
-          widget.itemBuilder(context, _list[index], index),
-      itemCount: _list.length,
+      itemBuilder: (context, index) => index == _list.length
+          // It's hard to know exactly the size of FAB because it's dynamic.
+          ? SizedBox(height: kFloatingActionButtonMargin * 3)
+          : widget.itemBuilder(context, _list[index], index),
+      itemCount: showSpareItem ? _list.length + 1 : _list.length,
       controller: widget.controller,
     );
   }

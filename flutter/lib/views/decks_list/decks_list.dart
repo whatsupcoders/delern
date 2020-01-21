@@ -5,7 +5,6 @@ import 'package:delern_flutter/flutter/styles.dart' as app_styles;
 import 'package:delern_flutter/flutter/user_messages.dart';
 import 'package:delern_flutter/models/deck_access_model.dart';
 import 'package:delern_flutter/models/deck_model.dart';
-import 'package:delern_flutter/models/scheduled_card_model.dart';
 import 'package:delern_flutter/remote/analytics.dart';
 import 'package:delern_flutter/routes.dart';
 import 'package:delern_flutter/view_models/decks_list_bloc.dart';
@@ -205,7 +204,7 @@ class DeckListItemWidget extends StatelessWidget {
   }
 
   Future<void> _showLearningDialog(BuildContext context) async {
-    if (await ScheduledCardModel.next(bloc.user, deck).isEmpty) {
+    if (deck.cards.value.isEmpty) {
       // If deck is empty, open a screen with adding cards
       return openNewCardScreen(context, deckKey: deck.key);
     }

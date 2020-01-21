@@ -65,18 +65,32 @@ abstract class DataListAccessor<T extends KeyedListItem>
   bool _loaded = false;
   final _value = StreamController<BuiltList<T>>.broadcast();
   final _events = StreamController<ListChangeRecord<T>>.broadcast();
+
+  /// Current value of the list. The following edge cases exist:
+  /// - the value is `null` if initialization is not yet complete ([hasValue] is
+  ///   false);
+  /// - if the `ListAccessor` has been [close]d, the value is an empty list.
   @override
-  BuiltList<T> get value =>
-      _currentValue == null ? null : BuiltList.from(_currentValue);
+  BuiltList<T> get value => _loaded ? BuiltList.from(_currentValue) : null;
+
+  /// `true` once the initial value has been loaded from the database. Never
+  /// changes to `false` afterwards.
   @override
   bool get hasValue => _loaded;
+
+  /// Updates to the current [value]. This stream is closed when this object is
+  /// [close]d.
   @override
   Stream<BuiltList<T>> get updates => _value.stream;
+
+  /// Updates to the current [value] described in the form of
+  /// [ListChangeRecord]. This stream is closed when this object is  [close]d.
   Stream<ListChangeRecord<T>> get events => _events.stream;
 
   StreamSubscription<Event> _onChildAdded, _onChildChanged, _onChildRemoved;
 
   DataListAccessor(DatabaseReference reference) {
+    // TODO(dotdoom): onError handler should close().
     _onChildAdded = reference.onChildAdded.listen(_childAddedOrChanged);
     _onChildChanged = reference.onChildChanged.listen(_childAddedOrChanged);
     _onChildRemoved = reference.onChildRemoved.listen((data) {
@@ -144,6 +158,9 @@ abstract class DataListAccessor<T extends KeyedListItem>
   @protected
   void disposeItem(T item) {}
 
+  /// Close this object and release associated resources. Typically used only
+  /// when the parent object is being removed from the database, or current user
+  /// looses access to this object.
   @override
   void close() {
     _currentValue

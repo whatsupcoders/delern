@@ -26,7 +26,11 @@ class _MappedStreamWithValue<TInput, TOutput>
   Stream<TOutput> get updates => _inputStream.updates.mapPerEvent(_convert);
 }
 
-extension StreamWithValueMap<TInput> on StreamWithValue<TInput> {
+/// We want [StreamWithValue] to be usable as an interface, rather than forcing
+/// users to inherit from it, since it has no state.
+/// Any implementations that can be useful are provided via this extension
+/// instead.
+extension StreamWithValueExtensions<TInput> on StreamWithValue<TInput> {
   StreamWithValue<TOutput> map<TOutput>(_Converter<TInput, TOutput> convert) =>
       _MappedStreamWithValue(this, convert);
 }
